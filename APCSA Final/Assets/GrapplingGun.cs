@@ -12,11 +12,13 @@ public class GrapplingGun : MonoBehaviour
 
   public LayerMask grappleable;
 
-  public float maxDist = 50f;
+  public float maxDist;
 
   private SpringJoint joint;
 
   public Transform GunTip, CameraHolder, Player;
+
+  public float springForce, damper, massScale;
 
   void Awake()
   {
@@ -43,31 +45,31 @@ public class GrapplingGun : MonoBehaviour
   void grapple()
   {
     RaycastHit hit;
-    Physics.Raycast(CameraHolder.position, CameraHolder.forward, out hit, maxDist, grappleable);
+    if (Physics.Raycast(CameraHolder.position, CameraHolder.forward, out hit, maxDist, grappleable))
+    {
+      if (hit.point != null) 
+      {
+        GrapplePoint = hit.point;
+        joint = Player.gameObject.AddComponent<SpringJoint>();
+        joint.autoConfigureConnectedAnchor = false;
+        joint.connectedAnchor = GrapplePoint;
 
-    GrapplePoint = hit.point;
-    joint = Player.gameObject.AddComponent<SpringJoint>();
-    joint.autoConfigureConnectedAnchor = false;
-    joint.connectedAnchor = GrapplePoint;
-
-    float distanceFromPoint = Vector3.Distance(Player.position, GrapplePoint);
-
-    //Distance to keep player in
-
-    joint.maxDistance = distanceFromPoint * 0.8f;
-    joint.minDistance = distanceFromPoint * 0.6f;
-
-    // Spring Variables
-    joint.spring = 6f;
-    joint.damper = 3f;
-    joint.massScale = 5f;
-
-    lr.positionCount = 2;
+        float distanceFromPoint = Vector3.Distance(Player.position, GrapplePoint);
+        joint.maxDistance = distanceFromPoint * 0.8f;
+        joint.minDistance = distanceFromPoint * 0.25f;
+        joint.spring = springForce;
+        joint.damper = damper;
+        joint.massScale = massScale;
+        lr.positionCount = 2;    
+      }
+    }
   }
 
   void draw()
   {
     if (!joint) return;
+
+    else
     lr.SetPosition(0, GunTip.position);
     lr.SetPosition(1, GrapplePoint);
 
