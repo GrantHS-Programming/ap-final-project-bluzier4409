@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class GrapplingGun : MonoBehaviour
 {
-  private LineRenderer lr;
+  Rigidbody rb;
+    private LineRenderer lr;
   private Vector3 GrapplePoint;
 
   public LayerMask grappleable;
@@ -20,9 +22,12 @@ public class GrapplingGun : MonoBehaviour
 
   public float springForce, damper, massScale;
 
+  public Camera c;
+
   void Awake()
   {
     lr = GetComponent<LineRenderer>();
+    rb = GetComponent<Rigidbody>();
   }
 
   void Update()
@@ -79,6 +84,8 @@ public class GrapplingGun : MonoBehaviour
   {
     lr.positionCount = 0;
     Destroy(joint);
+   // rb.drag = 3;
+   // rb.AddForce(c.transform.forward * 0.5f, ForceMode.Impulse);
   }
 
 }
