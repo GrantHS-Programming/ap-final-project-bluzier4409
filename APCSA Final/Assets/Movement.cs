@@ -5,6 +5,7 @@ using System.Data.Common;
 using Unity.VisualScripting;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Movement : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Movement : MonoBehaviour
     public int groundDrag = 7;
     public float airDrag = 0.5f;
 
-    public float maxVel = 20f;
+    public float maxVel = 2000f;
 
     public GameObject empty;
 
@@ -45,9 +46,9 @@ public class Movement : MonoBehaviour
    void velocityCap()
    {
     velocity = rb.velocity.magnitude;
-    if (velocity > 40)
+    if (velocity > 2000)
     {
-        rb.velocity = rb.velocity.normalized * 40;
+        rb.velocity = rb.velocity.normalized * 2000;
     }
    }
     
@@ -113,7 +114,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.E)) 
         {
             rb.drag = 3;
-            rb.AddForce(c.transform.forward * 0.5f, ForceMode.Impulse);
+            rb.AddExplosionForce(10f, rb.transform.position, 100f, 20f, ForceMode.Impulse );
         }
     }
 
