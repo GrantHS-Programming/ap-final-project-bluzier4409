@@ -38,7 +38,6 @@ public class Wallrunning : MonoBehaviour
 
     void Update()
     {
-        print(checkLeftWall());
         applyForce();
     }
 }

@@ -114,7 +114,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.E)) 
         {
             rb.drag = 3;
-            rb.AddExplosionForce(10f, rb.transform.position, 100f, 20f, ForceMode.Impulse );
+            rb.AddExplosionForce(1f, c.transform.position - new Vector3(0,10,0), 100f, 0.1f, ForceMode.Impulse );
         }
     }
 
