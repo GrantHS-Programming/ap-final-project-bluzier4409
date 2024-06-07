@@ -9,6 +9,7 @@ public class Grenatki : MonoBehaviour
 {
    public GameObject prefab;
    public GameObject c;
+   public Rigidbody player;
 
    Rigidbody rb;
 
@@ -18,6 +19,7 @@ public class Grenatki : MonoBehaviour
        {
             GameObject bomba = Instantiate(prefab, c.transform.position, Quaternion.identity);
             rb = bomba.GetComponent<Rigidbody>();
+            rb.velocity = player.velocity;
             rb.AddForce(c.transform.forward * 10, ForceMode.Impulse);
        }
    }

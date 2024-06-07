@@ -69,7 +69,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && grounder()) 
         {
-            rb.AddForce(Vector3.up * 12, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 50, ForceMode.Impulse);
         }
     }
 
@@ -114,7 +114,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.E)) 
         {
             rb.drag = 3;
-            rb.AddExplosionForce(1f, c.transform.position - new Vector3(0,10,0), 100f, 0.1f, ForceMode.Impulse );
+            rb.AddForce(c.transform.forward * 1f, ForceMode.Impulse);
         }
     }
 
