@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     public LayerMask ground;
     public float playerHeight;
 
-    public int groundDrag = 7;
+    public int groundDrag = 4;
     public float airDrag = 0.5f;
 
     public float maxVel = 2000f;
@@ -57,11 +57,11 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && grounder()) 
         {
-            rb.AddForce(c.transform.forward * 3, ForceMode.Force);
+            rb.AddForce(c.transform.forward * 6, ForceMode.Force);
         } 
         else if (Input.GetKey(KeyCode.W)) 
         {
-            rb.AddForce(c.transform.forward * 0.3f, ForceMode.Force);
+            rb.AddForce(transform.forward * 0.3f, ForceMode.Force);
         }
     }
 
@@ -69,7 +69,8 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && grounder()) 
         {
-            rb.AddForce(Vector3.up * 50, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 25, ForceMode.Impulse);
+            rb.AddForce(c.transform.forward * .5f, ForceMode.Impulse);
         }
     }
 
@@ -114,7 +115,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.E)) 
         {
             rb.drag = 3;
-            rb.AddForce(c.transform.forward * 1f, ForceMode.Impulse);
+            rb.AddForce(c.transform.forward * .5f, ForceMode.Impulse);
         }
     }
 

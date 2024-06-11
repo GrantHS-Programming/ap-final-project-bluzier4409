@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Explotar : MonoBehaviour
 {     Rigidbody rb;
     public GameObject target;
 
+    LayerMask blowuppable;
+
     public ParticleSystem ps;
     void Awake()
     {
         target = GameObject.FindWithTag("Player");
         rb = target.GetComponent<Rigidbody>();
-        ps.Stop();
     }
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision collision)
     {
         ps.Play();
-        rb.AddExplosionForce(40f, transform.position, 10f, 1f, ForceMode.Impulse);
+        rb.AddExplosionForce(25f, transform.position, 10f, 0.5f, ForceMode.Impulse);
         Destroy(this);
         Destroy(gameObject, 1f);
     }
