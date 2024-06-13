@@ -1,55 +1,22 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
+using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Movement : MonoBehaviour
+public class Collision : MonoBehaviour
 {
-    
-    [Header ("Components")]
-    Rigidbody rb;
-    GameObject Orientation;
-    public CapsuleCollider capsuleCollider;
-    Bounds bounds;
-    public Camera c;
-    
-    [Header ("Fixed Values")]
-    float playerHeight = 1f;
     int maxRecursions = 5;
     float skinWidth = 0.015f;
 
-    [Header ("Layers")]
-    public LayerMask ground;
+    Bounds bounds;
     public LayerMask layerMask;
 
-    [Header ("Properties")]
-    Vector3 playerVel;
+    public CapsuleCollider capsuleCollider;
 
-    // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-        rb = GetComponent<Rigidbody>();
-    }
-
-   void Update()
-   {
         bounds = capsuleCollider.bounds;
         bounds.Expand(-2 * skinWidth);
-    
-        changeMove(playerVel);
-   }
-
-   Vector3 WASD()
-   {
-     return Vector3.zero;
-   }
-    bool grounder()
-    {
-        return Physics.Raycast(Orientation.transform.position, Vector3.down, (playerHeight * 0.5f) + 0.5f, ground);
     }
 
     public Vector3 CollideAndSlide(Vector3 vel, Vector3 pos, int depth)
@@ -80,11 +47,5 @@ public class Movement : MonoBehaviour
         }
 
         return vel;
-    }
-
-    public void changeMove(Vector3 moveAmount)
-    {
-       moveAmount = CollideAndSlide(moveAmount, transform.position, 0);
-       moveAmount += CollideAndSlide(new Vector3(0,30,0), transform.position + moveAmount, 0);
     }
 }

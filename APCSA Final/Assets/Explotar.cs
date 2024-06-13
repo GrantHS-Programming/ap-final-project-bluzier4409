@@ -16,7 +16,7 @@ public class Explotar : MonoBehaviour
         target = GameObject.FindWithTag("Player");
         rb = target.GetComponent<Rigidbody>();
     }
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(UnityEngine.Collision collision)
     {
         ps.Play();
         rb.AddExplosionForce(25f, transform.position, 10f, 0.5f, ForceMode.Impulse);
